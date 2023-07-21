@@ -1,1 +1,1 @@
-# cgdyntest
+# Test results of cgdyn
