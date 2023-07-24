@@ -1,0 +1,256 @@
+****************************************************
+*                                                  *
+*                  GENESIS CGDYN                   *
+*                                                  *
+*        A Molecular Dynamics Simulator with       *
+*           Spatial Decomposition Scheme           *
+*                                                  *
+*               Developed by RIKEN                 *
+*                                                  *
+****************************************************
+ 
+[STEP0] Architecture and Compiler Information
+ 
+GENESIS_Information> GENESIS Information
+  version      = 2.0.0
+  commit ID    = $GENESIS_VERSION$
+  precision    = mixed 
+  nonbonding   = CPU
+
+Build_Information> Compiler Information
+  build host   = a04014@fn01sv04
+  fortran      = frtpx: Fujitsu Fortran Compiler 4.9.0 tcsds-1.2.37
+  option       =  -m -Kocl -Kfast,openmp,parallel,simd=2,noalias -Nlst=t -Koptmsg=2 -Kopenmp  
+  C            = fccpx: Fujitsu C/C++ Compiler 4.9.0 tcsds-1.2.37
+  option       = -m -Kvisimpact -Kocl -Kswp -Kopenmp 
+  defined var. =  -DHAVE_MPI_GENESIS -DOMP -DFFTE -DLAPACK -DDSFMT_MEXP=19937 -DKCOMP
+  link option  = -SSL2BLAMP -Kparallel -Nfjomplib -Kopenmp    
+  MPI Compiler = FUJITSU MPI
+
+  exec. host   = a04014@c29-7012c
+  LD library   = /opt/FJSVxtclanga/tcsds-1.2.37/lib64
+ MPI Runtime = FUJITSU MPI Library 4.0.0 (4.0.1fj4.0.0)
+
+[STEP1] Read Control Parameters
+ 
+Read_Ctrl_Input> Input Files
+  grotopfile = ../rCG_Droplets_50_50_50_100_b100_f53_g20_d0_rho0.62.top
+  grocrdfile = ../crd/rCG_Droplets_50_50_50_100_b100_f53_g20_d0_rho0.62.gro
+  rstfile = ../_DROPLET_test_eq_s_3_d_2_03_02.rst
+ 
+Read_Ctrl_Output> Output Files
+  dcdfile    = p4096_t3_04.dcd
+ 
+Read_Ctrl_Energy> Parameters of Energy Calculations
+  forcefield      =    RESIDCG
+  output_style    =    GENESIS
+ 
+Read_Ctrl_Dynamics> Parameters of MD simulation
+  integrator      =       VVER  nsteps          =      10000
+  timestep        =     0.0100  initial_time    =     0.0000
+  eneout_period   =       1000  rstout_period   =          0
+  crdout_period   =      10000  velout_period   =          0
+  nbupdate_period =         20  stoptr_period   =         10
+  lbupdate_period =          0
+  iseed           =         -1
+  annealing       =         no
+  verbose         =         no
+  target_md       =         no
+  steered_md      =         no
+ 
+Read_Ctrl_Ensemble> Parameters for Ensemble
+  ensemble        =        NVT
+  temperature     =    290.000
+  tpcontrol       =   LANGEVIN
+  gamma_t         =      0.010
+ 
+Read_Ctrl_Boundary> Parameters of Boundary Condition
+  type            =       PBC 
+  box_size(x,y,z) =   2254.000  2233.000  2275.000
+  min_domain_cell =          2
+  domain (x,y,z)  =         16        16        16
+ 
+Read_Ctrl_Selection> Parameters of Selection
+  # of groups     =          0
+  # of mole names =          0
+ 
+Read_Ctrl_Restraints> No restraint in the system
+
+Read_Ctrl_Fitting_MD> Parameters of Fitting
+  fitting method  =  TR+ROT   
+  fitting atom    = group1
+  mass_weight     =         no
+ 
+[STEP2] Setup MPI
+ 
+Setup_Mpi_Md> Summary of Setup MPI
+  number of MPI processes   =       4096
+  number of OpenMP threads  =          3
+  total number of CPU cores =      12288
+
+[STEP3] Set Relevant Variables and Structures
+ 
+Read_Grotop> Summary of Grotopfile
+  num_moltypes    =          1
+    tdp43                 :
+      num_atoms   =        154
+      num_bonds   =        153
+      num_angls   =         30
+      num_dihes   =         30
+      num_cmaps   =          0
+      num_excls   =          0
+      num_constrs =          0
+      num_pairs   =         20
+      num_vsites2 =          0
+      num_vsites3 =          0
+      num_vsites4 =          0
+      num_vsitesn =          0
+      num_posress =          0
+      num_PWMcos  =          0
+      num_PWMcosns=          0
+      num_IDR_HPS =          1
+      num_IDR_KH  =          0
+    .. not used molecule types were hidden.
+
+  num_molecules   =       7733
+    tdp43                 :  7733
+
+  num_atomtypes   =         37  num_bondtypes   =          0
+  num_angltypes   =          0  num_dihetypes   =          0
+  num_flangltypes           20
+  num_fldihetypes          400
+  num_constrtypes =          0  num_cmaptypes   =          0
+  num_nbonparms   =          0
+  num_basestacktypes  =     16
+  num_basepairtypes   =      4
+  num_basecrosstypes  =     32
+  num_cgdnaexvtypes   =      6
+  num_cgelemolpairs   =      1
+  num_cg_IDR_HPS_atomtypes  =     24
+  num_cg_KH_atomtypes  =    20
+
+  num_cg_pair_MJ_eps   =   400
+
+Read_Rst_Binary> Summary of RST file
+  num_atoms       =    1190882  iseed           = 1210705161
+  boxsize (x,y,z) =   2254.000  2233.000  2275.000
+
+Define_Molecule> Summary of molecules
+  num_atoms       =    1190882  num_bonds       =    1183149
+  num_angles      =     231990  num_dihedrals   =     231990
+  num_impropers   =          0  num_cmap_terms  =          0
+  num_residues    =    1190882  num_molecules   =       7733
+  num_segments    =          1  num_deg_freedom =    3572646
+  total_charge    =  23199.000
+ 
+Setup_Restart_Pre> Coordinates and velocities were replaced
+
+Setup_Boundary_Cell> Set Variables for Boundary Condition
+  domains (x,y,z) =         16        16        16
+  ncells (x,y,z)  =         98        97        98
+ 
+Define_Enefunc_Gromacs> Number of Interactions in Each Term
+  bond_ene        =    1183149  angle_ene       =     100529
+  flex_angle_ene  =     131461
+  torsion_ene     =     231990
+ restraint_groups =          0 restraint_funcs  =          0
+ 
+Setup_Dynamics> Subtract 3 translational degrees of freedom
+ 
+Update_Num_Deg_Freedom> Number of degrees of freedom was updated
+  num_deg_freedom =    3572643 (After removing translation)
+ 
+Random_Init> Initialize the random number
+  seed            = 389777
+
+Setup_Fitting_cgdyn> NO fitting is applied, skip
+  fitting method  =  NO
+ 
+Setup_Restart_Post> Read random seed  from RST file and Overwrite it
+
+Random_Mpi_Frombyte> MPI communicator size was changed from previous run.
+                     skip read random internal state of restart file.
+Setup_Restart_Post> Parameters were replaced
+
+[STEP4] Compute Single Point Energy for Molecules
+ 
+            STEP          ENERGY            BOND           ANGLE        DIHEDRAL  NATIVE_CONTACT NON-NATIVE_CONT           ELECT         IDR_HPS          CG_EXV
+ --------------- --------------- --------------- --------------- ---------------
+               0    -436655.4216     340311.3493    -234204.7155    -186058.1223     -62966.2122          0.0000      -2869.5774    -290868.1435          0.0000
+
+[STEP5] Perform Molecular Dynamics Simulation
+ 
+INFO:       STEP            TIME       TOTAL_ENE   POTENTIAL_ENE     KINETIC_ENE            RMSG            BOND           ANGLE        DIHEDRAL         IDR_HPS  NATIVE_CONTACT          CG_EXV           ELECT     TEMPERATURE          VOLUME
+ --------------- --------------- --------------- --------------- ---------------
+INFO:       1000         10.0000     566937.7775    -430092.8461     997030.6235          9.3929     339469.3489    -233275.5011    -184993.3410    -285841.0810     -62611.0369          0.0000      -2841.2349        286.279011450489050.0000
+
+INFO:       2000         20.0000     569690.5515    -426098.4538     995789.0053          9.3891     339628.2960    -232562.0703    -183797.6783    -284049.7415     -62451.1934          0.0000      -2866.0662        285.883111450489050.0000
+
+INFO:       3000         30.0000     572818.9331    -424170.1851     996989.1181          9.3965     339737.9684    -232538.4604    -183439.0730    -282705.7444     -62359.3860          0.0000      -2865.4897        286.234511450489050.0000
+
+INFO:       4000         40.0000     575446.5222    -421378.0898     996824.6120          9.3933     340090.9862    -232010.0718    -183270.0763    -281066.0647     -62246.3284          0.0000      -2876.5346        286.165711450489050.0000
+
+INFO:       5000         50.0000     578011.1145    -419232.7787     997243.8932          9.3977     340464.6185    -232041.7367    -182648.6747    -280031.9593     -62105.7430          0.0000      -2869.2835        286.299411450489050.0000
+
+INFO:       6000         60.0000     581111.6643    -417712.4289     998824.0932          9.4003     340350.2291    -232100.8164    -182568.5486    -278389.8592     -62124.8032          0.0000      -2878.6305        286.683611450489050.0000
+
+INFO:       7000         70.0000     583710.6910    -415534.4290     999245.1200          9.4089     340788.0693    -231909.5340    -182579.5131    -276868.3424     -62066.1781          0.0000      -2898.9307        286.851711450489050.0000
+
+INFO:       8000         80.0000     586039.6378    -413524.7074     999564.3452          9.4070     340979.0727    -231890.6730    -182206.3175    -275465.2085     -62045.8383          0.0000      -2895.7428        287.006011450489050.0000
+
+INFO:       9000         90.0000     587534.0220    -412986.5018    1000520.5238          9.3975     340320.0425    -231764.0245    -182179.8027    -274417.2892     -62021.0569          0.0000      -2924.3711        287.181411450489050.0000
+
+INFO:      10000        100.0000     589559.5123    -410289.7646     999849.2769          9.4096     341150.7413    -231660.8802    -182181.6783    -272715.4865     -61967.9887          0.0000      -2914.4722        287.005711450489050.0000
+
+ 
+[STEP6] Deallocate Arrays
+ 
+Output_Time> Averaged timer profile (Min, Max)
+  total time      =      93.631
+    setup         =      61.748
+    dynamics      =      31.884
+      energy      =      17.307
+      integrator  =      10.830
+      migration   =       1.997
+      pairlist    =       0.834 (       0.034,       4.512)
+  energy           
+    bond          =       0.076 (       0.009,       0.303)
+    angle         =       0.101 (       0.028,       0.408)
+    dihedral      =       0.137 (       0.027,       0.602)
+    base stacking =       0.000 (       0.000,       0.000)
+    nonbond       =       2.090 (       0.037,       8.235)
+      CG exv      =       0.864 (       0.008,       2.774)
+      CG DNA bp   =       0.000 (       0.000,       0.000)
+      CG DNA exv  =       0.000 (       0.000,       0.000)
+      CG ele      =       0.144 (       0.009,       0.628)
+      CG PWMcos   =       0.000 (       0.000,       0.000)
+      CG PWMcosns =       0.000 (       0.000,       0.000)
+      CG IDR-HPS  =       1.060 (       0.008,       4.988)
+      CG IDR-KH   =       0.000 (       0.000,       0.000)
+      CG KH       =       0.000 (       0.000,       0.000)
+      Contact     =       0.019 (       0.009,       0.058)
+      pme real    =       0.000 (       0.000,       0.000)
+      pme recip   =       0.000 (       0.000,       0.000)
+    solvation     =       0.000 (       0.000,       0.000)
+      polar       =       0.000 (       0.000,       0.000)
+      non-polar   =       0.000 (       0.000,       0.000)
+    restraint     =       0.000 (       0.000,       0.000)
+    qmmm          =       0.000 (       0.000,       0.000)
+    morph         =       0.000 (       0.000,       0.000)
+  integrator       
+    constraint    =       0.000 (       0.000,       0.000)
+    update        =       1.764 (       0.046,       8.117)
+    comm_coord    =       5.027 (       1.259,      13.065)
+    comm_force    =       3.960 (       1.675,       5.626)
+  migration       =       1.997 (       1.997,       1.998)
+    comm_migrate  =       0.924 (       0.714,       1.085)
+    ptl_migrate   =       0.015 (       0.001,       0.083)
+    bond_migrate  =       0.003 (       0.001,       0.009)
+    angl_migrate  =       0.002 (       0.001,       0.004)
+    dihe_migrate  =       0.002 (       0.001,       0.004)
+    contact_migr  =       0.003 (       0.000,       0.009)
+    stack_migrate =       0.000 (       0.000,       0.000)
+    pwmcos_migrate =       0.000 (       0.000,       0.000)
+    pwmcosns_migr  =       0.000 (       0.000,       0.000)
+    nonb_update    =       0.827 (       0.587,       1.378)
+
