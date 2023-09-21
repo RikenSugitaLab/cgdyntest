@@ -6,7 +6,7 @@ This repository is used to share simulation data for the publication of:
 ## Software
 
 In this work we report the development of GENESIS CGDYN, which can be accessed from:
-- GENESIS CGDYN (to be added)
+- GENESIS CGDYN: https://github.com/genesis-release-r-ccs/genesis-2.1.0beta_cgdyn
 
 For MD system paration, use the following program:
 - GENESIS-cg-tool: https://github.com/genesis-release-r-ccs/genesis_cg_tool
